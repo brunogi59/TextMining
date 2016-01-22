@@ -1,0 +1,36 @@
+% Author: Giuseppe Bruno
+\begin{figure}[ht]
+\begin{tikzpicture}[node distance=4mm, >=latex',
+ block/.style = {draw, rectangle, minimum height=10mm, minimum width=28mm,align=center,rounded corners=.5em},
+ bigblock/.style = {draw, rectangle, minimum height=14mm, minimum width=34mm,align=center,rounded corners=0.5em},
+rblock/.style = {draw, rectangle, rounded corners=0.5em},
+                        ]
+    \node [bigblock]                    (start)     {Text collection \\ Corpus};
+    \node [block, below=of start]       (encode)    {Get text encoding\\ Latin1,UTF-8};
+    \node [block, right=of encode]     (lang_det)   {Language detection};
+    \node [block, right=of lang_det]    (xtract)      {Layout and component\\ removal};
+    \node [block, below=of lang_det]    (Tokeniz)  {Tokenization\\ text segmentation};
+    \node [block, below=of Tokeniz]    (Stword)   {Stop word removal};
+    \node [block, below=of Stword]     (stemm) {Conflation: stemming\\ lemmatization};
+    \node [block, below=of stemm]      (postag)     {Part of Speech POS\\ tagging};
+    \node [block, below=of postag]     (homo)     {homonymous \& \\ synonymous recognition};
+    \node [block, below left=of homo]  (semant)     {Semantics \\ Sentiment analysis};
+    \node [block, below right=of homo] (word)     {Wordcloud \& \\ word histogram};
+
+
+%% paths 
+    \path[draw,->] (start)    edge  (encode)
+                   (encode)   edge  (lang_det)
+                   (lang_det) edge  (xtract)
+                   (xtract)   |-  (Tokeniz)
+                   (Tokeniz)  edge  (Stword)
+                   (Stword)   edge  (stemm)
+                   (stemm)    edge  (postag)
+                   (postag)   edge  (homo)
+                   (word)     edge  (semant)
+                   (homo)     |-    (word)
+                   ;
+    \end{tikzpicture}
+    \caption{Block diagram describing the steps for text and opinion mining}
+    \label{tm_scheme1}
+ \end{figure}
